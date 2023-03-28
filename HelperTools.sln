@@ -1,6 +1,6 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "FastaSampler", "FastaSampler\FastaSampler.csproj", "{CCD1BFF3-BD44-417D-A25C-066B6060D454}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "HelperTools", "HelperTools\HelperTools.csproj", "{CCD1BFF3-BD44-417D-A25C-066B6060D454}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

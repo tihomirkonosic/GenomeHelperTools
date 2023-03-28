@@ -1,4 +1,4 @@
-﻿namespace FastaSampler;
+﻿namespace HelperTools;
 
 public class YeastSampler
 {
