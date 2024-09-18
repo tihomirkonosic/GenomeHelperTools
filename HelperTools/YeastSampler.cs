@@ -55,7 +55,7 @@ public class YeastSampler
 				return strandIndex;
 			}
 
-			string? line = inFile.ReadLine();
+			string line = inFile.ReadLine();
 
 			if ((char)firstCharacter == '>')
 			{

@@ -10,7 +10,7 @@ internal class Program
 			//YeastSampler.ResampleYeast(yeastPath);
 
 			const string coliPath = @"D:\Development\GIS\test-data\ecoli\ecoli-reference.fasta";
-			const string outPath = @"D:\Development\GIS\test-data\ecoli\ecoli-diploid-reads.fasta";
+			const string outPath = @"D:\Development\GIS\test-data\ecoli\ecoli-reads-3K.fasta";
 			new EColiMutator().Mutate(coliPath, outPath);
 		}
 		catch (Exception err)

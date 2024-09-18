@@ -14,13 +14,60 @@ public class EColiMutator
 	
 	public void Mutate(string inPath, string outPath)
 	{
-		//using StreamWriter outFile = new StreamWriter(outPath);
-		Sequence data = ReadFile(inPath);
+		Sequence mainData = ReadFile(inPath);
+		List<Sequence> reads = CreateReads(mainData);
+		WriteFile(reads, outPath);
+	}
+
+	private void WriteFile(List<Sequence> reads, string outPath)
+	{
+		Console.WriteLine($"Writing start; Time: {DateTime.Now:HH:mm:ss}");
+		
+		using StreamWriter outFile = new StreamWriter(outPath);
+		foreach (Sequence seq in reads)
+		{
+			outFile.WriteLine(">" + seq.Name);
+			outFile.WriteLine(seq.Data);
+		}
+		
+		Console.WriteLine($"Writing done; Time: {DateTime.Now:HH:mm:ss}");
+	}
+
+	private List<Sequence> CreateReads(Sequence mainData)
+	{
+		int readLength = 3000;
+		int overlapLength = 1000;
+		int numberOfReads = 10;
+		
+		Console.WriteLine($"Splitting start; Time: {DateTime.Now:HH:mm:ss}");
+
+		List<int> readStarts = new List<int>();
+		for (int k = 0; k < numberOfReads; k++)
+		{
+			readStarts.Add(k * readLength);
+		}
+
+		List<Sequence> reads = new List<Sequence>();
+		for (int k = 0; k < readStarts.Count; k++)
+		{
+			Sequence seq = new Sequence
+			{
+				Name = "Read " + k,
+				Data = mainData.Data.Substring(readStarts[k], readLength + overlapLength),
+				Length = readLength + overlapLength
+			};
+			
+			reads.Add(seq);
+		}
+		
+		Console.WriteLine($"Splitting done; Time: {DateTime.Now:HH:mm:ss}");
+
+		return reads;
 	}
 
 	private Sequence ReadFile(string inPath)
 	{
-		Console.WriteLine($"reading start; Time: {DateTime.Now:HH:mm:ss}");
+		Console.WriteLine($"Reading start; Time: {DateTime.Now:HH:mm:ss}");
 
 		Sequence res = new Sequence();
 
