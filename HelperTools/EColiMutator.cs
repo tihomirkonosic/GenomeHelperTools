@@ -35,26 +35,17 @@ public class EColiMutator
 
 	private List<Sequence> CreateReads(Sequence mainData)
 	{
-		int sequenceTotalLength = 5000;
-		int readLength = 500;
-		int overlapLength = 100;
+		int readLength = 3000;
+		int overlapLength = 1000;
 		int numberOfReads = 10;
 		
 		Console.WriteLine($"Splitting start; Time: {DateTime.Now:HH:mm:ss}");
 
-		List<int> readStarts = new List<int>
+		List<int> readStarts = new List<int>();
+		for (int k = 0; k < numberOfReads; k++)
 		{
-			0, 
-			500,
-			1000,
-			1500,
-			2000,
-			2500,
-			3000,
-			3500,
-			4000,
-			4500
-		};
+			readStarts.Add(k * readLength);
+		}
 
 		List<Sequence> reads = new List<Sequence>();
 		for (int k = 0; k < readStarts.Count; k++)
