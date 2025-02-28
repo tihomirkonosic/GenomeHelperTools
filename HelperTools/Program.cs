@@ -10,7 +10,7 @@ internal class Program
 			//YeastSampler.ResampleYeast(yeastPath);
 
 			const string coliPath = @"C:\Users\Tiho\Development\test\ecoli-sequence.fasta";
-			const string outPath = @"C:\Users\Tiho\Development\test\out-reads-5K.fasta";
+			const string outPath = @"C:\Users\Tiho\Development\test\reads-5K.fasta";
 			
 			EColiMutator.Options options = new()
 			{

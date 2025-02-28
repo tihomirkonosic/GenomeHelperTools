@@ -50,7 +50,7 @@ public class EColiMutator
         {
             Sequence seq = new Sequence
             {
-                Name = $"Read {k + 1}",
+                Name = $"Read-{k + 1}",
                 Data = mainData.Data.Substring(k * baseLength, options.ReadLength),
                 Length = options.ReadLength
             };
