@@ -12,10 +12,17 @@ public class EColiMutator
         public Dictionary<char, int> Pile { get; set; }
     }
 
-    public void Mutate(string inPath, string outPath)
+    public class Options
+    {
+        public int ReadLength { get; set; }
+        public int ReadCount { get; set; }
+        public int OverlapLength { get; set; }
+    }
+
+    public void Mutate(string inPath, string outPath, Options options)
     {
         Sequence mainData = ReadFile(inPath);
-        List<Sequence> reads = CreateReads(mainData);
+        List<Sequence> reads = CreateReads(mainData, options);
         WriteFile(reads, outPath);
     }
 
@@ -33,28 +40,19 @@ public class EColiMutator
         Console.WriteLine($"Writing done; Time: {DateTime.Now:HH:mm:ss}");
     }
 
-    private static List<Sequence> CreateReads(Sequence mainData)
+    private static List<Sequence> CreateReads(Sequence mainData, Options options)
     {
-        const int readLength = 3000;
-        const int overlapLength = 1000;
-        const int numberOfReads = 10;
-
         Console.WriteLine($"Splitting start; Time: {DateTime.Now:HH:mm:ss}");
 
-        List<int> readStarts = [];
-        for (int k = 0; k < numberOfReads; k++)
-        {
-            readStarts.Add(k * readLength);
-        }
-
         List<Sequence> reads = [];
-        for (int k = 0; k < readStarts.Count; k++)
+        int baseLength = options.ReadLength - options.OverlapLength;
+        for (int k = 0; k < options.ReadCount; k++)
         {
             Sequence seq = new Sequence
             {
-                Name = "Read " + k,
-                Data = mainData.Data.Substring(readStarts[k], readLength + overlapLength),
-                Length = readLength + overlapLength
+                Name = $"Read {k + 1}",
+                Data = mainData.Data.Substring(k * baseLength, options.ReadLength),
+                Length = options.ReadLength
             };
 
             reads.Add(seq);
@@ -79,7 +77,7 @@ public class EColiMutator
         using StreamReader inFile = new StreamReader(inPath);
         while ((line = inFile.ReadLine()) != null)
         {
-            if (line[0] == '>')
+            if (line.Length > 0 && line[0] == '>')
             {
                 if (titleFound)
                     throw new Exception("Only one sequence is supported");
